@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postech.Fase3.Contatos.Add.Domain", "Postech.Fase3.Contatos.Add.Domain\Postech.Fase3.Contatos.Add.Domain.csproj", "{DD230427-9D35-44CF-8B45-EE5C4F467438}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postech.Fase3.Contatos.Add.Infra.CrossCuting", "Postech.Fase3.Contatos.Add.Infra.CrossCuting\Postech.Fase3.Contatos.Add.Infra.CrossCuting.csproj", "{8B4108FE-4743-4FE9-923E-9DEADFA5525D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{DD230427-9D35-44CF-8B45-EE5C4F467438}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD230427-9D35-44CF-8B45-EE5C4F467438}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD230427-9D35-44CF-8B45-EE5C4F467438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B4108FE-4743-4FE9-923E-9DEADFA5525D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B4108FE-4743-4FE9-923E-9DEADFA5525D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B4108FE-4743-4FE9-923E-9DEADFA5525D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B4108FE-4743-4FE9-923E-9DEADFA5525D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B7DD6263-4168-470E-9DE1-07BAAD228CC2} = {E890B5E1-A49B-4D9D-A4DB-E59ED28FBE5C}
@@ -60,5 +66,6 @@ Global
 		{F65D26CA-D05F-4B1D-9A1F-EFECC13591E7} = {96446216-A24D-4C5E-8B6D-07D41C0DE22A}
 		{B4C17D7F-BBD8-4539-8D0E-659C79BFFE67} = {2F3A9E4F-CE4D-4EF3-8F11-4A6017D55FAC}
 		{DD230427-9D35-44CF-8B45-EE5C4F467438} = {199FFB14-DC7B-4CB6-B49B-D77FFDCDCBF7}
+		{8B4108FE-4743-4FE9-923E-9DEADFA5525D} = {96446216-A24D-4C5E-8B6D-07D41C0DE22A}
 	EndGlobalSection
 EndGlobal
