@@ -37,6 +37,7 @@ public class RabbitMqConsumer
                 sleepDurationProvider: attempt => TimeSpan.FromSeconds(20 * attempt), // Intervalo entre tentativas
                 onRetry: (exception, timespan, retryAttempt, context) =>
                 {
+                    Console.WriteLine("Erro RabbitMQ: " + exception.Message);
                     Console.WriteLine($"Tentativa {retryAttempt} falhou. Tentando novamente em {timespan.Seconds} segundos...");
                 }
             );
@@ -56,14 +57,15 @@ public class RabbitMqConsumer
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
-
-                // Processa a mensagem na camada de Aplicação
+                
                 await _messageProcessor.ProcessMessageAsync(message);
+                
+                channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
             };
 
-            channel.BasicConsume(queue: "task_queue", autoAck: true, consumer: consumer);
+            channel.BasicConsume(queue: _filaConsummer, autoAck: false, consumer: consumer);
 
-            Console.WriteLine("Listening for messages on 'task_queue'...");
+            Console.WriteLine($"Escutando a fila {_filaConsummer}...");
             Console.ReadLine(); // Mantém a aplicação escutando
         });
     }
