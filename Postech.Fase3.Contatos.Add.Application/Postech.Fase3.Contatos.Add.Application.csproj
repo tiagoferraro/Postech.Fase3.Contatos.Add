@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Postech.Fase3.Contatos.Add.Infra\Postech.Fase3.Contatos.Add.Infra.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+    </ItemGroup>
+
 </Project>
