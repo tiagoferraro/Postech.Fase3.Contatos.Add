@@ -7,10 +7,9 @@ public class Worker(
     RabbitMqConsumer _rabbitMqConsumer
 ) : BackgroundService
 {
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-        _rabbitMqConsumer.StartListening();
-        return Task.CompletedTask;
+        await _rabbitMqConsumer.StartListeningAsync();
     }
 }

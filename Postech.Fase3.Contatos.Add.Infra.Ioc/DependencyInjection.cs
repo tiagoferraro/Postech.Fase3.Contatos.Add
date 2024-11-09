@@ -28,7 +28,7 @@ public static class DependencyInjection
     public static IServiceCollection AdicionarDependencias(this IServiceCollection services)
     {
         services.AddSingleton<RabbitMqConsumer>();
-        services.AddSingleton<IMessageProcessor, MensagemService>();
+        services.AddScoped<IMessageProcessor, MensagemService>();
         
         services.AddScoped<IContatoRepository, ContatoRepository>();
         services.AddScoped<IContatoService, ContatoService>();
