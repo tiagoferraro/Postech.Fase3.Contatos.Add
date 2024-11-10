@@ -32,7 +32,7 @@ public class ContatoRepository(AppDBContext context) : IContatoRepository
             .ToListAsync();
     }
 
-    public async Task<Contato?> Obter(int contatoId)
+    public async Task<Contato?> Obter(Guid contatoId)
     {
         return await context.Contatos.Include(c => c.Ddd).AsNoTracking().FirstOrDefaultAsync(c => c.ContatoId == contatoId && c.Ativo);
     }

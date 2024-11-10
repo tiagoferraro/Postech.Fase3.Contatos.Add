@@ -2,8 +2,8 @@ using Postech.Fase3.Contatos.Add.Infra.Ioc.Messaging;
 
 namespace Postech.Fase3.Contatos.Add.Service;
 
-public class Worker(
-    ILogger<Worker> _logger,
+public class WkAddContato(
+    ILogger<WkAddContato> _logger,
     RabbitMqConsumer _rabbitMqConsumer
 ) : BackgroundService
 {

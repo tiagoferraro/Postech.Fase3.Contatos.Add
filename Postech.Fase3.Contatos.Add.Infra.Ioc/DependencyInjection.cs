@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Postech.Fase3.Contatos.Add.Application.Interface;
-using Postech.Fase3.Contatos.Add.Application.Mapping;
 using Postech.Fase3.Contatos.Add.Application.Service;
 using Postech.Fase3.Contatos.Add.Infra.CrossCuting;
 using Postech.Fase3.Contatos.Add.Infra.Interface;
@@ -32,7 +31,6 @@ public static class DependencyInjection
         
         services.AddScoped<IContatoRepository, ContatoRepository>();
         services.AddScoped<IContatoService, ContatoService>();
-        services.AddAutoMapper(typeof(ContatoMapingProfile));
 
         return services;
     }
