@@ -11,32 +11,9 @@ public class ContatoRepository(AppDBContext context) : IContatoRepository
     {
         context.Contatos.Add(c);
         await context.SaveChangesAsync();
-        await context.Entry(c).Reference(x => x.Ddd).LoadAsync();
         return c;
     }
-
-    public async Task Atualizar(Contato c)
-    {
-        context.Entry(c).State = EntityState.Modified;
-        await context.SaveChangesAsync();
-    }
-
-    public async Task<IEnumerable<Contato>> Listar()
-    {
-        return await context.Contatos.Include(c => c.Ddd).AsNoTracking().Where(c => c.Ativo).ToListAsync();
-    }
-
-    public async Task<IEnumerable<Contato>> ListarComDDD(int dddId)
-    {
-        return await context.Contatos.Include(c => c.Ddd).AsNoTracking().Where(c => c.DddId == dddId && c.Ativo)
-            .ToListAsync();
-    }
-
-    public async Task<Contato?> Obter(Guid contatoId)
-    {
-        return await context.Contatos.Include(c => c.Ddd).AsNoTracking().FirstOrDefaultAsync(c => c.ContatoId == contatoId && c.Ativo);
-    }
-
+    
     public async Task<bool> Existe(Contato c)
     {
         return await context.Contatos.AsNoTracking().AnyAsync(contato =>

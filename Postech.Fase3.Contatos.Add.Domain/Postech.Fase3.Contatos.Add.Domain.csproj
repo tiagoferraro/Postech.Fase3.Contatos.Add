@@ -6,4 +6,17 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="ObjectValue\**" />
+      <Compile Remove="Entities\DDD.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="ObjectValue\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="ObjectValue\**" />
+    </ItemGroup>
+
 </Project>

@@ -68,6 +68,7 @@ public class RabbitMqConsumer
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var messageProcessor = scope.ServiceProvider.GetRequiredService<IMessageProcessor>();
+                    
                     await messageProcessor.ProcessMessageAsync(message);
                 }
 

@@ -14,8 +14,7 @@ public class AppDBContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 
-
-    public DbSet<DDD> DDD { get; set; }
+    
     public DbSet<Contato> Contatos { get; set; }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
