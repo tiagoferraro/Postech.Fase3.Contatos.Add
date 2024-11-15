@@ -1,4 +1,7 @@
-﻿namespace Postech.Fase3.Contatos.Add.Domain.Entities;
+﻿using FluentValidation;
+using Postech.Fase3.Contatos.Add.Domain.Entities.Validators;
+
+namespace Postech.Fase3.Contatos.Add.Domain.Entities;
 
 public class Contato
 {
@@ -19,6 +22,9 @@ public class Contato
         DddId = dddId;
         DataInclusao = dataInclusao;
         Ativo = true;
+
+        var validaContato = new ContatoValidator();
+        validaContato.ValidateAndThrow(this);
     }
 
 }

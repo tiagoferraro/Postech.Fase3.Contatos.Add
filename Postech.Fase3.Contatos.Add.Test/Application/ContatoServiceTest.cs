@@ -13,7 +13,7 @@ public class ContatoServiceTest
 
     public ContatoServiceTest()
     {
-        _contato = new Contato(Guid.NewGuid(), "Mario", "7198875566", "teste@email.com.br", 11, DateTime.Now);
+        _contato = new Contato(Guid.NewGuid(), "nome Teste", "963333243", "teste@email.com.br", 11, DateTime.Now);
 
         contatoRepository = new Mock<IContatoRepository>();
     }
