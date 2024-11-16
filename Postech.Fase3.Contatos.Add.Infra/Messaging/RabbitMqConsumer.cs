@@ -7,7 +7,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 
-namespace Postech.Fase3.Contatos.Add.Infra.Ioc.Messaging;
+namespace Postech.Fase3.Contatos.Add.Infra.Messaging;
 
 public class RabbitMqConsumer
 {
@@ -25,7 +25,8 @@ public class RabbitMqConsumer
         {
             HostName = rabbitMqConfig["HostName"],
             UserName = rabbitMqConfig["UserName"],
-            Password = rabbitMqConfig["Password"]
+            Password = rabbitMqConfig["Password"],
+            Port = Convert.ToInt32(rabbitMqConfig["Port"])
         };
         _serviceProvider = serviceProvider;
         _filaConsummer = rabbitMqConfig["QueueName"] ?? throw new ArgumentNullException(nameof(configuration));

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Postech.Fase3.Contatos.Add.Infra.Repository.Context;
 using Testcontainers.MsSql;
 
@@ -23,6 +24,7 @@ public class ContextDbFixture : IAsyncLifetime
         sqlConection = _msSqlContainer.GetConnectionString();
         var options = new DbContextOptionsBuilder<AppDBContext>()
             .UseSqlServer(sqlConection)
+            .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
             .Options;
 
         Context = new AppDBContext(options);

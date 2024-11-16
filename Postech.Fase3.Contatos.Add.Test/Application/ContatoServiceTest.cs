@@ -36,6 +36,7 @@ public class ContatoServiceTest
 
         //assert
         Assert.True(ContatoResult.IsSuccess);
+        Assert.True(ContatoResult.Data);
     }
 
     [Fact]

@@ -5,7 +5,7 @@ using Postech.Fase3.Contatos.Add.Application.Interface;
 using Postech.Fase3.Contatos.Add.Application.Service;
 using Postech.Fase3.Contatos.Add.Infra.CrossCuting;
 using Postech.Fase3.Contatos.Add.Infra.Interface;
-using Postech.Fase3.Contatos.Add.Infra.Ioc.Messaging;
+using Postech.Fase3.Contatos.Add.Infra.Messaging;
 using Postech.Fase3.Contatos.Add.Infra.Repository;
 using Postech.Fase3.Contatos.Add.Infra.Repository.Context;
 

@@ -1,4 +1,4 @@
-using Postech.Fase3.Contatos.Add.Infra.Ioc.Messaging;
+using Postech.Fase3.Contatos.Add.Infra.Messaging;
 
 namespace Postech.Fase3.Contatos.Add.Service;
 

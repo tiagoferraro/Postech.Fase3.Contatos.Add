@@ -10,14 +10,20 @@ public class ContatoTest
     public void ContatoValidator_Contato_OK()
     {
         //arrange
-        var Contato = new Contato(Guid.NewGuid(), "João de Barro", "988808182", "Joao.Barro@acme.com", 27,
-            DateTime.Now);
+        var guidContato = Guid.NewGuid();
+        var dataInclusao = DateTime.Now;
+        var contato = new Contato(guidContato, "João de Barro", "988808182", "Joao.Barro@acme.com", 27,dataInclusao
+            );
 
         //act
         var contatoValidator = new ContatoValidator();
-        var result = contatoValidator.Validate(Contato);
+        var result = contatoValidator.Validate(contato);
         //assert
         Assert.True(result.IsValid);
+        Assert.Equal(guidContato,contato.ContatoId);
+        Assert.True(contato.Ativo);
+        Assert.Equal(contato.DataInclusao,dataInclusao);
+            
     }
 
     [Fact]

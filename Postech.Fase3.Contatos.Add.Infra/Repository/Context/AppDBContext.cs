@@ -17,17 +17,4 @@ public class AppDBContext : DbContext
     
     public DbSet<Contato> Contatos { get; set; }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataInclusao") != null))
-        {
-            if (entry.State == EntityState.Modified)
-            {
-                entry.Property("DataInclusao").IsModified = false;
-            }
-        }
-
-        return base.SaveChangesAsync(cancellationToken);
-    }
-
 }

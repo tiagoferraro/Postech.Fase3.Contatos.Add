@@ -10,13 +10,18 @@
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.0.0" />
     <PackageReference Include="Testcontainers.MsSql" Version="4.0.0" />
+    <PackageReference Include="Testcontainers.RabbitMq" Version="4.0.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="Xunit.Extensions.Ordering" Version="1.4.5" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Postech.Fase3.Contatos.Add.Application\Postech.Fase3.Contatos.Add.Application.csproj" />
+    <ProjectReference Include="..\Postech.Fase3.Contatos.Add.Domain\Postech.Fase3.Contatos.Add.Domain.csproj" />
     <ProjectReference Include="..\Postech.Fase3.Contatos.Add.Infra\Postech.Fase3.Contatos.Add.Infra.csproj" />
   </ItemGroup>
 
