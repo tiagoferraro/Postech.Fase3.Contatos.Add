@@ -1,10 +1,42 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Postech.Fase3.Contatos.Add.Infra.Ioc;
 using Postech.Fase3.Contatos.Add.Service;
+using Prometheus;
+using Serilog;
 
-var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<WkAddContato>();
-builder.Services.AdicionarDependencias();
-builder.Services.AdicionarDBContext(builder.Configuration);
+var builder = Host
+    .CreateDefaultBuilder(args)
 
-var host = builder.Build();
-await host.RunAsync();
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.Configure(app =>
+        {
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapMetrics(); // Add this line to map the /metrics endpoint
+            });
+        });
+
+        webBuilder.UseUrls("http://+:5000");
+    })
+    .ConfigureServices((hostContext, services) =>
+    {
+
+        services.AddHostedService<WkAddContato>();
+        services.AdicionarDependencias();
+        services.AdicionarDBContext(hostContext.Configuration);
+    })
+    .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+        .ReadFrom.Configuration(hostingContext.Configuration)
+        .Enrich.FromLogContext()
+        .WriteTo.Console());
+
+
+
+await builder.Build().RunAsync();
+
+
+    
+  

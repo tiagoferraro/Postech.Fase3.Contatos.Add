@@ -5,6 +5,7 @@ using Moq;
 using Postech.Fase3.Contatos.Add.Application.DTO;
 using Postech.Fase3.Contatos.Add.Infra.Messaging;
 using RabbitMQ.Client;
+using Serilog;
 using Testcontainers.RabbitMq;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -17,6 +18,7 @@ public class RabbitMqConsumerTest
     {
         // Arrange
         var serviceProviderMock = new Mock<IServiceProvider>();
+        var logg = new Mock<ILogger>();
 
         var rabbitMqSettings = new Dictionary<string, string>
         {
@@ -75,7 +77,7 @@ public class RabbitMqConsumerTest
             routingKey: "",
             body: body);
 
-        var rabbitMqConsumer = new RabbitMqConsumer(configuration, serviceProviderMock.Object);
+        var rabbitMqConsumer = new RabbitMqConsumer(configuration, serviceProviderMock.Object, logg.Object);
 
         // Act
         await rabbitMqConsumer.StartListeningAsync();
