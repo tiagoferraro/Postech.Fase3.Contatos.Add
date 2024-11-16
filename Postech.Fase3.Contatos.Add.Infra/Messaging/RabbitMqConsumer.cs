@@ -2,7 +2,6 @@
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using Polly;
 using Postech.Fase3.Contatos.Add.Infra.CrossCuting;
 using Prometheus;
@@ -96,10 +95,10 @@ public class RabbitMqConsumer
                 };
 
                 await channel.BasicConsumeAsync(queue: _filaConsummer, autoAck: false, consumer: consumer);
-
-                _logger.Information("Escutando a fila {QueueName}...", _filaConsummer);
-                Console.ReadLine(); // Mantém a aplicação escutando
+          
             };
+
+            _logger.Information("Escutando a fila {QueueName}", _filaConsummer);
         });
 
         return Task.CompletedTask;
