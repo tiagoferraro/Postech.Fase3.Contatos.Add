@@ -7,9 +7,10 @@ public class WkAddContato(
     RabbitMqConsumer _rabbitMqConsumer
 ) : BackgroundService
 {
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-        await _rabbitMqConsumer.StartListeningAsync();
+        _rabbitMqConsumer.StartListeningAsync();
+        return Task.CompletedTask;
     }
 }

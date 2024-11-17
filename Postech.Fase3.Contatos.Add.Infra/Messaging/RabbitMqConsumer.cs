@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,9 +32,9 @@ public class RabbitMqConsumer
         var rabbitMqConfig = configuration.GetSection("RabbitMQ");
         _connectionFactory = new ConnectionFactory()
         {
-            HostName = rabbitMqConfig["HostName"],
-            UserName = rabbitMqConfig["UserName"],
-            Password = rabbitMqConfig["Password"],
+            HostName = rabbitMqConfig["HostName"] ?? throw new ArgumentNullException(nameof(configuration)),
+            UserName = rabbitMqConfig["UserName"] ?? throw new ArgumentNullException(nameof(configuration)),
+            Password = rabbitMqConfig["Password"] ?? throw new ArgumentNullException(nameof(configuration)),
             Port = Convert.ToInt32(rabbitMqConfig["Port"])
         };
         _serviceProvider = serviceProvider;
@@ -42,7 +43,7 @@ public class RabbitMqConsumer
         _logger = logger;
     }
 
-    public Task StartListeningAsync()
+    public void StartListeningAsync()
     {
         var retryPolicy = Policy
             .Handle<BrokerUnreachableException>() // Tenta novamente se o RabbitMQ não estiver acessível
@@ -72,35 +73,36 @@ public class RabbitMqConsumer
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.ReceivedAsync += async (model, ea) =>
             {
+                _logger.Information("Mensagem recebida");
                 var stopwatch = Stopwatch.StartNew();
 
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
-                using (var scope = _serviceProvider.CreateScope())
-                {
-                    var messageProcessor = scope.ServiceProvider.GetRequiredService<IMessageProcessor>();
+                using var scope = _serviceProvider.CreateScope();
+                var messageProcessor = scope.ServiceProvider.GetRequiredService<IMessageProcessor>();
 
-                    var resultadoProcessamento = await messageProcessor.ProcessMessageAsync(message);
+                var resultadoProcessamento = await messageProcessor.ProcessMessageAsync(message);
 
-                    if (resultadoProcessamento.IsSuccess)
-                        MessagesProcessed.Inc();
-                    else
-                        MessagesFailed.Inc();
+                if (resultadoProcessamento.IsSuccess)
+                    MessagesProcessed.Inc();
+                else
+                    MessagesFailed.Inc();
 
-                    await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+                await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
 
-                    stopwatch.Stop();
-                    MessageProcessingDuration.Observe(stopwatch.Elapsed.TotalSeconds);
-                };
-
-                await channel.BasicConsumeAsync(queue: _filaConsummer, autoAck: false, consumer: consumer);
-          
+                stopwatch.Stop();
+                MessageProcessingDuration.Observe(stopwatch.Elapsed.TotalSeconds);
+                _logger.Information("Mensagem processada Tempo em milliseconds {milliseconds}", stopwatch.Elapsed.TotalMilliseconds);
             };
+            await channel.BasicConsumeAsync(queue: _filaConsummer, autoAck: false, consumer: consumer);
 
             _logger.Information("Escutando a fila {QueueName}", _filaConsummer);
+            await Task.Delay(Timeout.Infinite);
         });
 
-        return Task.CompletedTask;
+        
+
+
     }
 }

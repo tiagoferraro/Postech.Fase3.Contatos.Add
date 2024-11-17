@@ -13,13 +13,14 @@ var builder = Host
         webBuilder.Configure(app =>
         {
             app.UseRouting();
+            app.UseMetricServer();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapMetrics(); // Add this line to map the /metrics endpoint
             });
         });
 
-        webBuilder.UseUrls("http://+:5000");
+        webBuilder.UseUrls("http://+:5001");
     })
     .ConfigureServices((hostContext, services) =>
     {

@@ -15,8 +15,8 @@ public class MensagemService(IContatoService _contatoService,ILogger _logger) : 
         try
         {
             _logger.Information("Processing message: {Message}", message);
-            var contatoDTO = JsonSerializer.Deserialize<ContatoDto>(message);
-            var result = await _contatoService.AdicionarAsync(new Contato(contatoDTO.ContatoId.Value, contatoDTO.Nome, contatoDTO.Telefone, contatoDTO.Email, contatoDTO.DddId, contatoDTO.DataInclusao));
+            var contatoDto = JsonSerializer.Deserialize<ContatoDto>(message);
+            var result = await _contatoService.AdicionarAsync(new Contato(contatoDto!.ContatoId!.Value, contatoDto.Nome, contatoDto.Telefone, contatoDto.Email, contatoDto.DddId, contatoDto.DataInclusao));
             _logger.Information("Message processed successfully: {Message}", message);
             return result;
 

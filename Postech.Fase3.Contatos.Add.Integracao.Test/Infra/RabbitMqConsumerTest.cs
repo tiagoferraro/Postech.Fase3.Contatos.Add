@@ -80,7 +80,7 @@ public class RabbitMqConsumerTest
         var rabbitMqConsumer = new RabbitMqConsumer(configuration, serviceProviderMock.Object, logg.Object);
 
         // Act
-        await rabbitMqConsumer.StartListeningAsync();
+        rabbitMqConsumer.StartListeningAsync();
     }
 }
 
