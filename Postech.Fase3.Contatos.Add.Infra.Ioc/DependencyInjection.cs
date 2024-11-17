@@ -13,7 +13,7 @@ namespace Postech.Fase3.Contatos.Add.Infra.Ioc;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AdicionarDBContext(this IServiceCollection services,IConfiguration configurarion
+    public static IServiceCollection AdicionarDbContext(this IServiceCollection services,IConfiguration configurarion
     )
     {
         services.AddDbContext<AppDBContext>(options =>

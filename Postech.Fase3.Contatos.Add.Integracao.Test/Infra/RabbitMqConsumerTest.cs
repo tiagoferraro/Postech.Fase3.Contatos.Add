@@ -32,7 +32,7 @@ public class RabbitMqConsumerTest
 
 
         var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(rabbitMqSettings)
+            .AddInMemoryCollection(rabbitMqSettings!)
             .Build();
 
         
@@ -46,25 +46,26 @@ public class RabbitMqConsumerTest
              .Build();
         await rabbitMqContainer.StartAsync();
 
-        var _connectionFactory = new ConnectionFactory()
+        var connectionFactory = new ConnectionFactory()
         {
-            HostName = rabbitMqConfig["HostName"],
-            UserName = rabbitMqConfig["UserName"],
-            Password = rabbitMqConfig["Password"],
+            HostName = rabbitMqConfig["HostName"]!,
+            UserName = rabbitMqConfig["UserName"]!,
+            Password = rabbitMqConfig["Password"]!,
             Port = Convert.ToInt32(rabbitMqConfig["Port"]),
         };
+        if (connectionFactory == null) throw new ArgumentNullException(nameof(connectionFactory));
 
-        await using var connection = await _connectionFactory.CreateConnectionAsync();
+        await using var connection = await connectionFactory.CreateConnectionAsync();
         await using var channel = await connection.CreateChannelAsync();
 
 
-        await channel.QueueDeclareAsync(queue: rabbitMqConfig["QueueName"],
+        await channel.QueueDeclareAsync(queue: rabbitMqConfig["QueueName"]!,
             durable: false,
             exclusive: false,
             autoDelete: false,
             arguments: null);
-        await channel.ExchangeDeclareAsync(rabbitMqConfig["Exchange"], ExchangeType.Fanout, true, false);
-        await channel.QueueBindAsync(rabbitMqConfig["QueueName"], rabbitMqConfig["Exchange"], "");
+        await channel.ExchangeDeclareAsync(rabbitMqConfig["Exchange"]!, ExchangeType.Fanout, true, false);
+        await channel.QueueBindAsync(rabbitMqConfig["QueueName"]!, rabbitMqConfig["Exchange"]!, "");
 
 
         var contatoDto = new ContatoDto(Guid.NewGuid(), "Nome teste", "963333243", "email@email.com", true, 11, DateTime.Now);
@@ -73,7 +74,7 @@ public class RabbitMqConsumerTest
 
         // Publica a mensagem na fila
         await channel.BasicPublishAsync(
-            exchange: rabbitMqConfig["Exchange"],
+            exchange: rabbitMqConfig["Exchange"]!,
             routingKey: "",
             body: body);
 

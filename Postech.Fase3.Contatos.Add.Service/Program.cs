@@ -27,7 +27,7 @@ var builder = Host
 
         services.AddHostedService<WkAddContato>();
         services.AdicionarDependencias();
-        services.AdicionarDBContext(hostContext.Configuration);
+        services.AdicionarDbContext(hostContext.Configuration);
     })
     .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)
