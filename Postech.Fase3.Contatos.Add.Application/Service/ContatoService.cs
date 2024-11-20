@@ -11,7 +11,7 @@ public class ContatoService(IContatoRepository _contatoRepository):IContatoServi
     {
         try
         {
-            if (await _contatoRepository.Existe(contato))
+            if (await _contatoRepository.ExisteAsync(contato))
                 return new ServiceResult<bool>(new ValidacaoException("Cadastro de contato ja existe"));
 
             await _contatoRepository.Adicionar(contato);

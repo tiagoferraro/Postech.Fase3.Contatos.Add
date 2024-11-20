@@ -37,7 +37,7 @@ public class ContatoRepositoryTest
         context.Contatos.Add(contato);
         await context.SaveChangesAsync();
 
-        var result = await repository.Existe(contato);
+        var result = await repository.ExisteAsync(contato);
         
         Assert.True(result);
     }

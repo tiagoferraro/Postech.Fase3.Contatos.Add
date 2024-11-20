@@ -44,7 +44,7 @@ public class ContatoServiceTest
     {
         //arrange
         contatoRepository
-            .Setup(x => x.Existe(It.IsAny<Contato>()))
+            .Setup(x => x.ExisteAsync(It.IsAny<Contato>()))
             .ReturnsAsync(true);
 
         var contatoService = new ContatoService(contatoRepository.Object);
