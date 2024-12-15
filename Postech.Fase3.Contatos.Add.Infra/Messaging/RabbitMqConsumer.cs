@@ -20,9 +20,9 @@ public class RabbitMqConsumer
     private readonly string _exchange;
     private readonly ILogger _logger;
 
-    private static readonly Counter MessagesProcessed = Metrics.CreateCounter("rabbitmq_messages_processed", "Número de mensagens processadas com sucesso");
-    private static readonly Counter MessagesFailed = Metrics.CreateCounter("rabbitmq_messages_failed", "Número de mensagens que falharam ao processar");
-    private static readonly Histogram MessageProcessingDuration = Metrics.CreateHistogram("rabbitmq_message_processing_duration_seconds", "Duração do processamento das mensagens", new HistogramConfiguration
+    private static readonly Counter MessagesProcessed = Metrics.CreateCounter("rabbitmq_messages_processed_ContatosAdd", "Número de mensagens processadas com sucesso");
+    private static readonly Counter MessagesFailed = Metrics.CreateCounter("rabbitmq_messages_failed_ContatosAdd", "Número de mensagens que falharam ao processar");
+    private static readonly Histogram MessageProcessingDuration = Metrics.CreateHistogram("rabbitmq_message_processing_duration_seconds_ContatosAdd", "Duração do processamento das mensagens", new HistogramConfiguration
     {
         Buckets = Histogram.LinearBuckets(0.1, 0.1, 10)  // Exemplos de buckets de latência (ajuste conforme necessário)
     });
