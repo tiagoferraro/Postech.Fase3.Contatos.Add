@@ -16,4 +16,4 @@ spec:
       - name: contatos-add-container
         image: postech-fase3-contatos-add-service:latest
         ports:
-        - containerPort: 80
+        - containerPort: 5002
