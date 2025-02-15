@@ -1,0 +1,19 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-add-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: contatos-add-service
+  template:
+    metadata:
+      labels:
+        app: contatos-add-service
+    spec:
+      containers:
+      - name: contatos-add-container
+        image: postech-fase3-contatos-add-service:latest
+        ports:
+        - containerPort: 80
