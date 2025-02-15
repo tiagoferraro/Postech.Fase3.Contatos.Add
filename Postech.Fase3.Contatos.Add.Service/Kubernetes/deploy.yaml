@@ -14,6 +14,9 @@ spec:
     spec:
       containers:
       - name: contatos-add-container
-        image: postech-fase3-contatos-add-service:latest
+        image: luisfernandofernandes/postech-add:1.0
         ports:
         - containerPort: 5002
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
